@@ -1,0 +1,122 @@
+object dtmSistema: TdtmSistema
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Left = 674
+  Top = 223
+  Height = 310
+  Width = 441
+  object Database1: TDatabase
+    AliasName = 'NL'
+    DatabaseName = 'NL'
+    LoginPrompt = False
+    Params.Strings = (
+      'SERVER NAME=GRZPROD'
+      'USER NAME=NL'
+      'NET PROTOCOL=TNS'
+      'OPEN MODE=READ/WRITE'
+      'SCHEMA CACHE SIZE=8'
+      'LANGDRIVER='
+      'SQLQRYMODE=SERVER'
+      'SQLPASSTHRU MODE=SHARED AUTOCOMMIT'
+      'SCHEMA CACHE TIME=-1'
+      'MAX ROWS=-1'
+      'BATCH COUNT=200'
+      'ENABLE SCHEMA CACHE=FALSE'
+      'SCHEMA CACHE DIR='
+      'ENABLE BCD=FALSE'
+      'ENABLE INTEGERS=FALSE'
+      'LIST SYNONYMS=NONE'
+      'ROWSET SIZE=20'
+      'BLOBS TO CACHE=64'
+      'BLOB SIZE=32'
+      'PASSWORD=NL')
+    SessionName = 'Session1_1'
+    Left = 17
+    Top = 9
+  end
+  object Session1: TSession
+    Active = True
+    AutoSessionName = True
+    Left = 73
+    Top = 8
+  end
+  object dtsGridSolicitacao: TDataSource
+    DataSet = qryGridSolicitacao
+    Left = 40
+    Top = 80
+  end
+  object qryGridSolicitacao: TQuery
+    DatabaseName = 'NL'
+    SessionName = 'Session1_1'
+    SQL.Strings = (
+      
+        'SELECT A.*,I.DES_ITEM FROM GRZ_LOJAS_SOLICITACAO_PADRAO A,IE_ITE' +
+        'NS I'
+      ''
+      'WHERE A.COD_ITEM = I.COD_ITEM')
+    Left = 40
+    Top = 128
+  end
+  object qryConsulta: TQuery
+    DatabaseName = 'NL'
+    SessionName = 'Session1_1'
+    Left = 128
+    Top = 8
+  end
+  object qryConsVendaMedia: TQuery
+    DatabaseName = 'NL'
+    SessionName = 'Session1_1'
+    Left = 200
+    Top = 8
+  end
+  object qryManutencao: TQuery
+    DatabaseName = 'NL'
+    SessionName = 'Session1_1'
+    Left = 160
+    Top = 80
+  end
+  object qryManutencao2: TQuery
+    DatabaseName = 'NL'
+    SessionName = 'Session1_1'
+    Left = 160
+    Top = 128
+  end
+  object qryGridRelatorio: TQuery
+    DatabaseName = 'NL'
+    SessionName = 'Session1_1'
+    SQL.Strings = (
+      
+        'select a.cod_unidade,a.cod_estruturado,i.des_item,a.dta_solicita' +
+        'cao,a.est_padrao as padrao_anterior,a.qtd_solicitacao,decode(a.i' +
+        'nd_status,0,'#39'Aguardando'#39','
+      
+        '                                                                ' +
+        '                               1,'#39'Aprovado'#39','
+      
+        '                                                                ' +
+        '                               2,'#39'Aprovado Parcial'#39','
+      
+        '                                                                ' +
+        '                               3,'#39'Recusado'#39', '#39' '#39') Status,a.qtd_a' +
+        'provada,trunc(a.dta_aprovacao)dta_aprovacao,b.qtd_est_min_i as p' +
+        'adrao_atual'
+      
+        ' from grz_lojas_solicitacao_padrao a,ce_pars_calculo b ,ie_itens' +
+        ' i where'
+      ' b.cod_unidade = a.cod_unidade and'
+      ' b.cod_item = a.cod_item and'
+      ' i.cod_item = a.cod_item and'
+      ' a.cod_emp = 30 and'
+      ' a.cod_unidade = 343 and'
+      ' a.cod_estruturado between 000000000 and 999999999 and'
+      ' a.dta_solicitacao between '#39'01/05/2016'#39' and '#39'25/05/2016'#39'and'
+      ' b.cod_emp = 1')
+    Left = 272
+    Top = 128
+  end
+  object dtsGridRelatorio: TDataSource
+    DataSet = qryGridRelatorio
+    Left = 272
+    Top = 80
+  end
+end
